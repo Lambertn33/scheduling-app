@@ -4,6 +4,7 @@ import axios from 'axios'
 import FormButton from './components/Form/FormButton'
 import FormErrorMessage from './components/Form/FormErrorMessage'
 import FormInput from './components/Form/FormInput'
+import Link from 'next/link'
 
 
 export default function Signup() {
@@ -94,6 +95,11 @@ export default function Signup() {
                                  label="Sign up for free"
                                 />
                                 </form>
+                                <p className='mt-3'>Already Have an account?
+                                <Link href='/Login'>
+                                    <a className='font-bold'>Login</a>
+                                </Link>
+                                </p>
                             </div>
                         </div>
                         <div className='p-6 bg-gray-200'>
