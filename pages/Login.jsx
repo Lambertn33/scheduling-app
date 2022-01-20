@@ -12,13 +12,16 @@ export default function Login() {
   const [email , setemail] = useState('')
   const [password , setpassword] = useState('')
   const [hasError, sethasError] = useState(false)
+  const [isLoading , setIsLoading] = useState(false)
   const [errorMessage, seterrorMessage] = useState('')
   const router = useRouter();
 
   const handleSubmit = (e) =>{
+    setIsLoading(true)
     e.preventDefault();
     e.stopPropagation();
     if(email.trim() === "" || password.trim() === ""){
+      setIsLoading(false)
       sethasError(true)
       seterrorMessage("Please provide all fields..");
       return;
@@ -32,11 +35,13 @@ export default function Login() {
       if(result.error !==null){
         if (result.status === 401)
                 {
+                    setIsLoading(false)
                     sethasError(true)
                     seterrorMessage("Invalid Credentials..");
                 }
                 else
                 {
+                    setIsLoading(false)
                     sethasError(true)
                     seterrorMessage(result.error);
                 }
@@ -72,11 +77,12 @@ export default function Login() {
                     onChange={e=>setpassword(e.target.value)}                
                   />
                   <FormButton
-                  label="Sign In"
+                   label={!isLoading ? "Sign In" : "Please wait ..."}
+                   isLoading={isLoading}
                   />
                </Form>
                <p className='mt-3'>Don t Have an account?
-               <Link href='/'>
+               <Link href='/Signup'>
                  <a className='font-bold'>Create an account</a>
                </Link>
                </p>

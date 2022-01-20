@@ -5,7 +5,8 @@ import FormButton from './components/Form/FormButton'
 import FormErrorMessage from './components/Form/FormErrorMessage'
 import FormInput from './components/Form/FormInput'
 import Link from 'next/link'
-
+import { signIn } from "next-auth/client"
+import { useRouter } from 'next/router'
 
 export default function Signup() {
 
@@ -14,18 +15,31 @@ export default function Signup() {
     const [password, setpassword] = useState('')
     const [hasError, sethasError] = useState(false)
     const [errorMessage, seterrorMessage] = useState('')
+    const [isLoading , setIsLoading] = useState(false)
     const endpoint = "/api/users/signup"
+    const router = useRouter();
 
     const submitData = async(e) =>{
+        setIsLoading(true)
         e.preventDefault()
         e.stopPropagation();
         try {
          const res = await axios.post(endpoint,{
              username,email,password
          })
-         console.log(res)
+         if(res.data.status == 200){
+            signIn("credentials",{
+              email,
+              password,
+              callbackUrl:`${window.location.origin}/bookings/Index`,
+              redirect:false
+            }).then(function(result){
+                router.push(result.url);
+            })
+          }
         } catch (error) {
             if(error.response.status !==200){
+                setIsLoading(false)
                 seterrorMessage(error.response.data.message)
                 sethasError(true)
             }
@@ -91,12 +105,13 @@ export default function Signup() {
                                     value={password}   
                                     onChange={e=>setpassword(e.target.value)}      
                                 />
-                                <FormButton 
-                                 label="Sign up for free"
+                                <FormButton
+                                label={!isLoading ? "Sign up for free" : "Please wait ..."}
+                                isLoading={isLoading}
                                 />
                                 </form>
                                 <p className='mt-3'>Already Have an account?
-                                <Link href='/Login'>
+                                <Link href='/'>
                                     <a className='font-bold'>Login</a>
                                 </Link>
                                 </p>
