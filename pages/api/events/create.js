@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/client";
+import { session, useSession } from "next-auth/client";
 import prisma from "../../../lib/prisma";
 
 export default async(req , res)=>{
@@ -14,7 +14,7 @@ export default async(req , res)=>{
         //make event title unique to a user
         const checkTitleForCurrentUser = await prisma.event.findFirst({
             where:{
-                userId:"25f9c3b9-26f9-4f66-ad3b-f67a347372b6",
+                userId:user.id,
                 AND:{
                     title:title
                 }
@@ -33,7 +33,7 @@ export default async(req , res)=>{
                 title:title,
                 URL:url,
                 description:description,
-                userId:"25f9c3b9-26f9-4f66-ad3b-f67a347372b6",
+                userId:user.id,
                 minutes:minutes
             }
         })

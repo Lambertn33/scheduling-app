@@ -29,7 +29,7 @@ export default function Login() {
     signIn("credentials",{
       email,
       password,
-      callbackUrl:`${window.location.origin}/bookings/Index`,
+      callbackUrl:`${window.location.origin}/events/Index`,
       redirect:false
     }).then(function(result){
       if(result.error !==null){
