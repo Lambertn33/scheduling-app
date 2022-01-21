@@ -1,10 +1,12 @@
 import React , {useState} from 'react';
 import { getSession , useSession } from 'next-auth/client'
 import Header from '../components/Head/Header';
+import Link from 'next/link'
 import Navbar from '../components/Navbar/Navbar';
 import prisma from '../../lib/prisma'
 import { BsClockFill } from 'react-icons/bs'
 import {FaUserAlt} from 'react-icons/fa'
+import { GoLinkExternal } from 'react-icons/go'
 import axios from 'axios';
 
 export const getServerSideProps = async(context)=>{
@@ -188,18 +190,32 @@ export default function Index({events}) {
                                       events.map(event=>{
                                           return(
                                             <div className='p-4 pt-4 bg-white border border-gray-300 rounded-sm'>
-                                            <span className='text-sm font-bold'>{event.minutes} Min Meeting</span><span className='text-xs'>/{session.user.username}/{event.minutes}min</span>
-                                            <div className='flex items-center gap-4 mt-4'>
-                                                <div className='flex items-center'>
-                                                    <BsClockFill className='text-gray-500'/>
-                                                     <span className='ml-1 text-sm text-gray-500'>{event.minutes}min</span>
-                                                </div>
-                                                <div className='flex items-center'>
-                                                    <FaUserAlt className='text-gray-500'/>
-                                                     <span className='ml-1 text-sm text-gray-500'>1-on-1</span>
-                                                </div>
+                                             <div className='flex justify-between'>
+                                                 <div>
+                                                    <span className='text-sm font-bold'>{event.minutes} Min Meeting</span><span className='text-xs'>/{session.user.username}/{event.minutes}min</span>
+                                                    <div className='flex items-center gap-4 mt-4'>
+                                                        <div className='flex items-center'>
+                                                            <BsClockFill className='text-gray-500'/>
+                                                            <span className='ml-1 text-sm text-gray-500'>{event.minutes}min</span>
+                                                        </div>
+                                                        <div className='flex items-center'>
+                                                            <FaUserAlt className='text-gray-500'/>
+                                                            <span className='ml-1 text-sm text-gray-500'>1-on-1</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div className='px-4 flex items-center'>
+                                                     <Link href={{
+                                                         pathname:'/events/[event]',
+                                                         query:{event:event.id}
+                                                     }}>
+                                                        <a target="_blank">
+                                                        <GoLinkExternal/>
+                                                        </a>
+                                                     </Link>
+                                                 </div>
+                                             </div>
                                             </div>
-                                        </div>
                                           )
                                       })
                                      :

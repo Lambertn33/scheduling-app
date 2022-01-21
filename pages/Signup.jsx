@@ -4,6 +4,7 @@ import axios from 'axios'
 import FormButton from './components/Form/FormButton'
 import FormErrorMessage from './components/Form/FormErrorMessage'
 import FormInput from './components/Form/FormInput'
+import Header from './components/Head/Header'
 import Link from 'next/link'
 import { signIn } from "next-auth/client"
 import { useRouter } from 'next/router'
@@ -49,7 +50,9 @@ export default function Signup() {
         sethasError(false)
     }
     return (
-        <div className='w-screen h-screen px-48'>
+        <>
+         <Header title="Register" />
+         <div className='w-screen h-screen px-48'>
             <div className='flex items-center justify-center w-full h-full'>
                 <div className='grid grid-cols-2 gap-32'>
                     <div className=''>
@@ -127,5 +130,6 @@ export default function Signup() {
                 </div>
             </div>            
         </div>
+        </>
     )
 }

@@ -4,6 +4,7 @@ import FormButton from './components/Form/FormButton'
 import FormErrorMessage from './components/Form/FormErrorMessage'
 import FormInput from './components/Form/FormInput'
 import Form from './components/Form/Form'
+import Header from './components/Head/Header'
 import Link from 'next/link'
 import { signIn } from "next-auth/client"
 import { useRouter } from 'next/router'
@@ -56,6 +57,8 @@ export default function Login() {
 }
   
     return (
+       <>
+        <Header title="Login" />
         <div className='w-screen h-screen bg-gray-100'>
             <div className='flex flex-col items-center justify-center w-full h-full'>
                <Form onSubmit={handleSubmit} title="Cal.com" subTitle="Sign in to your account" >
@@ -88,5 +91,6 @@ export default function Login() {
                </p>
             </div>
         </div>
+       </>
     )
 }
