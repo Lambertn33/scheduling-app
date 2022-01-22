@@ -78,12 +78,14 @@ export default function Event({eventType}) {
          setHasError(false)
          setErrorMessage("");
          try {
+            const user = session.user
             const res = await axios.post(endpoint,{
                 eventDate:startDate,
                 from,
                 to,
                 eventTypeId:eventType.id,
-                duration:minutes
+                duration:minutes,
+                user:user
             }) 
             if(res.data.status == 200){
                 window.location.reload();

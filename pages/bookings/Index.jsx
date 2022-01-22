@@ -16,13 +16,19 @@ export const getServerSideProps = async(context)=>{
       }
     } 
 
-    const events = await prisma.event.findMany({
+    const bookings = await prisma.booking.findMany({
         where:{
             userId:session.user.id
         },
+        include:{
+            event:true
+        }
     })
+    const actualBookings = JSON.parse(JSON.stringify(bookings))
     return {
-        props:{events}
+        props:{
+            actualBookings
+        }
     }
 }
 
@@ -38,7 +44,8 @@ const isSessionValid = (session) => {
 }
  
 /** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
-export default function Index(props) {
+export default function Index({actualBookings}) {
+    console.log(actualBookings)
     const [session , loading] = useSession()
     if(!loading){
         if(isSessionValid(session))
@@ -64,22 +71,26 @@ export default function Index(props) {
                                     <p className='text-gray-400'>Canceled</p>
                                 </div>
                             </div>
-                            <div className='p-12 pt-8 mt-8 bg-white border border-gray-300 rounded-sm'>
+                            {
+                                actualBookings.map(booking=>{
+                                    return(
+                                        <div key={booking.id} className='p-12 pt-8 mt-8 bg-white border border-gray-300 rounded-sm'>
                                 <div className='flex justify-between'>
                                     <div className='flex gap-8'>
                                         <div className='flex flex-col'>
-                                            <span className='text-sm font-semibold'>Wed, 29 Dec</span>
-                                            <span className='text-sm text-gray-700'>16:30 - 16:45</span>
+                                            <span className='text-sm font-semibold'>{booking.event_date}</span>
+                                            <span className='text-sm text-gray-700'>{booking.from}</span>
                                         </div>
                                         <div className='flex flex-col'>
-                                            <span className='font-semibold'>15 Min Meeting between Daniel Tonel and Test</span>
+                                            <span className='font-semibold'>{booking.duration} Min Meeting between {session.user.username} and Test</span>
                                             <span className='text-sm text-gray-700'>"asfasfas"</span>
                                             <span className='text-sm text-black'>asfasfas@gmail.com</span>
                                         </div>
                                     </div>
                                     <div className='flex gap-4'>
+                                        <div className>
                                         <button className='border '>
-                                            <div className='flex items-center justify-center gap-2 px-2'>
+                                            <div className='flex items-center justify-center gap-2 px-2 py-2'>
                                             <IoIosAlarm className='text-lg font-bold'/>
                                             <span className='font-semibold'>Reschedule</span>
                                             </div>
@@ -90,9 +101,13 @@ export default function Index(props) {
                                             <span className='font-semibold'>Cancel</span>
                                             </div>
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                                    )
+                                })
+                            }
                             <div className='flex justify-center py-4'>
                             <button className='px-4 py-2 text-sm text-white bg-gray-400 rounded-sm'>
                                 No More Results

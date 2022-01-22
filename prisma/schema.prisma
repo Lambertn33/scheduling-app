@@ -17,6 +17,7 @@ model User {
   createdAt    DateTime      @default(now())
   password     String
   events       Event[]
+  bookings     Booking[]
 }
 
 model Event {
@@ -36,6 +37,8 @@ model Booking {
   event_date    DateTime
   event_type_id String    
   event         Event     @relation(fields: [event_type_id], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
   from          String
   to            String
   duration      String
