@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { getSession , useSession } from 'next-auth/client'
-import prisma from '../../../../../components/prisma'
+import prisma from '../../../../../lib/prisma'
 import FormInput from '../../../../../components/Form/FormInput'
 import FormTextArea from '../../../../../components/Form/FormTextArea'
 import FormErrorMessage from '../../../../../components/Form/FormErrorMessage'
