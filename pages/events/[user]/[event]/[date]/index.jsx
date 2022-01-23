@@ -47,7 +47,7 @@ const isSessionValid = (session) => {
 }
 
 
-export default function confirmation({actualEventType , date}) {
+export default function Index({actualEventType , date}) {
     const booking_id = actualEventType.booking[0].id
     const router = useRouter()
     const [session , loading] = useSession()

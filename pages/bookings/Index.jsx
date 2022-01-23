@@ -83,9 +83,9 @@ export default function Index({actualBookings}) {
                                         <span className='text-sm text-gray-700'>{booking.from}</span>
                                     </div>
                                     <div className='flex flex-col'>
-                                        <span className='font-semibold'>{booking.duration} Min Meeting between {session.user.username} and {booking.guest[0].names}</span>
+                                        <span className='font-semibold'>{booking.duration} Min Meeting between {session.user.username} {booking.guest[0] ? `and ${booking.guest[0].names}` : ""}</span>
                                         <span className='text-sm text-gray-700'>{booking.event.title}</span>
-                                        <span className='text-sm text-black'>{booking.guest[0].email}</span>
+                                        {booking.guest[0] && <span className='text-sm text-black'>{booking.guest[0].email}</span>}
                                     </div>
                                 </div>
                                 <div className='flex gap-4'>

@@ -42,7 +42,7 @@ const isSessionValid = (session) => {
     }
 }
 
-export default function success({actualEventType , guestNames}) {
+export default function Success({actualEventType , guestNames}) {
     const [session , loading] = useSession()
     if(!loading){
         if(isSessionValid(session)){
