@@ -1,11 +1,12 @@
 import React , {useState} from 'react';
 import { getSession , useSession } from 'next-auth/client'
-import prisma from '../../lib/prisma'
+import prisma from '../../../../lib/prisma'
 import DatePicker from 'react-datepicker'
-import Header from '../components/Head/Header';
+import Header from '../../../components/Head/Header';
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import { BsClockFill } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -49,6 +50,7 @@ const isSessionValid = (session) => {
 }
 
 export default function Event({eventType}) {
+    const router = useRouter()
     const [session , loading] = useSession()
     const { minutes,title } = eventType
     const [startDate , setStartDate] = useState(new Date())
@@ -88,10 +90,18 @@ export default function Event({eventType}) {
                 user:user
             }) 
             if(res.data.status == 200){
-                window.location.reload();
+                router.push({
+                    pathname:"/events/[user]/[event]/[date]",
+                    query:{
+                        user:session.user.username,
+                        event:eventType.id,
+                        date:eventDate
+                    }
+                })
             }
          } catch (error) {
-             
+             setHasError(true)
+             setErrorMessage('an error occured...please try again')
          }
 
      }
@@ -104,6 +114,16 @@ export default function Event({eventType}) {
             <div className='h-screen w-screen bg-gray-100'>
               <div className='flex h-full w-full justify-center items-center'>
                   <div className='bg-white px-40 p-16 border'>
+                    <div className='flex justify-center'>
+                    {
+                        hasError &&
+                        <span className='text-red-500 font-bold py-4'>
+                            {
+                                errorMessage
+                            }
+                        </span>
+                    }
+                    </div>
                    <div className='flex gap-2'>
                        <div className='flex flex-col items-start'>
                            <span className='text-gray-400 text-lg uppercase'>{session.user.username}</span>

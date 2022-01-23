@@ -28,7 +28,7 @@ model Event {
   minutes      String
   userId      String
   user        User     @relation(fields: [userId], references: [id])
-  bookings    Booking[]
+  booking    Booking[]
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -44,7 +44,7 @@ model Booking {
   duration      String
   createdAt     DateTime @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  guests       Guest[]
+  guest         Guest[]
   status       Status @default(UPCOMING)
 }
 

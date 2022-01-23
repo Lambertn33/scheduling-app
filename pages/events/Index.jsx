@@ -189,7 +189,7 @@ export default function Index({events}) {
                                      events.length > 0 ? 
                                       events.map(event=>{
                                           return(
-                                            <div className='p-4 pt-4 bg-white border border-gray-300 rounded-sm'>
+                                            <div key={event.id} className='p-4 pt-4 bg-white border border-gray-300 rounded-sm'>
                                              <div className='flex justify-between'>
                                                  <div>
                                                     <span className='text-sm font-bold'>{event.minutes} Min Meeting</span><span className='text-xs'>/{session.user.username}/{event.minutes}min</span>
@@ -206,8 +206,8 @@ export default function Index({events}) {
                                                  </div>
                                                  <div className='px-4 flex items-center'>
                                                      <Link href={{
-                                                         pathname:'/events/[event]',
-                                                         query:{event:event.id}
+                                                         pathname:'/events/[user]/[event]',
+                                                         query:{event:event.id , user:session.user.username}
                                                      }}>
                                                         <a target="_blank">
                                                         <GoLinkExternal/>
