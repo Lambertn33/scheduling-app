@@ -118,7 +118,7 @@ export default function Index({events}) {
               <Header title="Events"/>
               <div className='flex w-screen h-screen bg-gray-100'>
                     <div className='w-1/6 bg-white'>
-                        <Navbar session={session} />
+                        <Navbar ses={session} />
                     </div>  
                     <div className='w-5/6'>
                         <div className='w-full h-full'>
