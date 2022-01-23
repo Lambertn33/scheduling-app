@@ -49,7 +49,7 @@ export default function Success({actualEventType , guestNames}) {
         if(isSessionValid(session)){
             return (
                 <>
-                <Header title="Meeting Set" />
+                <Header title="Meeting Set Success" />
                 <div className='w-screen h-screen bg-gray-100'>
                     <div className='flex items-center justify-center w-full h-full '>
                         <div className='px-8 bg-white max-w-4'>

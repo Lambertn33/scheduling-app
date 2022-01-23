@@ -69,7 +69,7 @@ export default function Index({actualEventType , date}) {
         })
         if(response.data.status == 200){
             router.push({
-                pathname:"/bookings/Success",
+                pathname:"/bookings/success",
                 query:{
                     eventId:actualEventType.id,
                     bookingId:booking_id,
