@@ -21,7 +21,8 @@ export const getServerSideProps = async(context)=>{
             userId:session.user.id
         },
         include:{
-            event:true
+            event:true,
+            guest:true
         }
     })
     const actualBookings = JSON.parse(JSON.stringify(bookings))
@@ -45,7 +46,6 @@ const isSessionValid = (session) => {
  
 /** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
 export default function Index({actualBookings}) {
-    console.log(actualBookings)
     const [session , loading] = useSession()
     if(!loading){
         if(isSessionValid(session))
@@ -79,13 +79,13 @@ export default function Index({actualBookings}) {
                             <div className='flex justify-between'>
                                 <div className='flex gap-8'>
                                     <div className='flex flex-col'>
-                                        <span className='text-sm font-semibold'>{booking.event_date}</span>
+                                        <span className='text-sm font-semibold'>{new Date(booking.event_date).toISOString().slice(0,10)}</span>
                                         <span className='text-sm text-gray-700'>{booking.from}</span>
                                     </div>
                                     <div className='flex flex-col'>
-                                        <span className='font-semibold'>{booking.duration} Min Meeting between {session.user.username} and Test</span>
+                                        <span className='font-semibold'>{booking.duration} Min Meeting between {session.user.username} and {booking.guest[0].names}</span>
                                         <span className='text-sm text-gray-700'>{booking.event.title}</span>
-                                        <span className='text-sm text-black'>asfasfas@gmail.com</span>
+                                        <span className='text-sm text-black'>{booking.guest[0].email}</span>
                                     </div>
                                 </div>
                                 <div className='flex gap-4'>

@@ -51,12 +51,14 @@ export default function Index({events}) {
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
+    const[unformattedUrl , setUnformattedUrl] = useState('')
     const [description, setDescription] = useState('')
     const [minutes, setMinutes] = useState('')
     const [hasError , setHasError] = useState(false)
     const [errorMessage , setErrorMessage] = useState('')
     const [isLoading , setIsLoading] = useState(false)
     const endpoint = "/api/events/create"
+    let formattedUrl;
     const togglePopup = () => {
         setHasError(false)
         setErrorMessage("");
@@ -68,7 +70,8 @@ export default function Index({events}) {
     }
     const settingTitle = (e) => {
         setTitle(e.target.value)
-        setUrl(`${window.location.hostname}/${e.target.value}`)
+        setUnformattedUrl(title.replace(/ /g,'-'))
+        setUrl(`${window.location.hostname}/${formattedUrl}`)
     }
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -157,7 +160,7 @@ export default function Index({events}) {
                                                 <label className="text-sm font-semibold text-left">Url</label>
                                                 <div className="flex items-center">
                                                     <p className="p-2 px-4 font-semibold text-gray-400 border-t border-b border-l bg-gray-50">https://cal.com/{session.user.username}/</p>
-                                                    <input type="text" name="" id="" readOnly className="w-full px-4 py-2 text-sm border" placeholder="" value={title}  />
+                                                    <input type="text" name="" id="" readOnly className="w-full px-4 py-2 text-sm border" placeholder="" value={unformattedUrl}  />
                                                 </div>
                                             </div>
                                             <div className="flex flex-col">

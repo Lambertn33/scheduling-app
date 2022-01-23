@@ -1,4 +1,3 @@
-import { session, useSession } from "next-auth/client";
 import prisma from "../../../lib/prisma";
 
 export default async(req , res)=>{
@@ -42,7 +41,6 @@ export default async(req , res)=>{
     
        res.status(200).send({status:200 , message:"New event created successfully"})
     } catch (error) {
-        throw error
         res.status(500).json({
             "message":error
         })
