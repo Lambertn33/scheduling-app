@@ -1,13 +1,13 @@
 import React , {useState} from 'react';
 import { getSession , useSession } from 'next-auth/client'
-import Header from '../components/Head/Header';
+import axios from 'axios';
 import Link from 'next/link'
-import Navbar from '../components/Navbar/Navbar';
 import prisma from '../../lib/prisma'
+import Header from '../../components/Head/Header';
+import Navbar from '../../components/Navbar/Navbar';
 import { BsClockFill } from 'react-icons/bs'
 import {FaUserAlt} from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
-import axios from 'axios';
 
 export const getServerSideProps = async(context)=>{
     const session = await getSession(context)
@@ -207,7 +207,7 @@ export default function Index({events}) {
                                                         </div>
                                                     </div>
                                                  </div>
-                                                 <div className='px-4 flex items-center'>
+                                                 <div className='flex items-center px-4'>
                                                      <Link href={{
                                                          pathname:'/events/[user]/[event]',
                                                          query:{event:event.id , user:session.user.username}

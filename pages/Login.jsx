@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 
-import FormButton from './components/Form/FormButton'
-import FormErrorMessage from './components/Form/FormErrorMessage'
-import FormInput from './components/Form/FormInput'
-import Form from './components/Form/Form'
-import Header from './components/Head/Header'
+import FormButton from '../components/Form/FormButton'
+import FormErrorMessage from '../components/Form/FormErrorMessage'
+import FormInput from '../components/Form/FormInput'
+import Form from '../components/Form/Form'
+import Header from '../components/Head/Header'
+
 import Link from 'next/link'
 import { signIn } from "next-auth/client"
 import { useRouter } from 'next/router'

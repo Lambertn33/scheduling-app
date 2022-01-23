@@ -1,7 +1,7 @@
 import React from 'react'
 import { getSession , useSession } from 'next-auth/client'
-import Header from '../components/Head/Header'
-import Navbar from '../components/Navbar/Navbar'
+import Header from '../../components/Head/Header'
+import Navbar from '../../components/Navbar/Navbar'
 import { IoIosClose, IoIosAlarm } from 'react-icons/io'
 import prisma from '../../lib/prisma'
 

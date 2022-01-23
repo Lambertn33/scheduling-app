@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { getSession , useSession } from 'next-auth/client'
-import FormButton from '../../../../components/Form/FormButton'
-import FormInput from '../../../../components/Form/FormInput'
-import FormTextArea from '../../../../components/Form/FormTextArea'
-import FormErrorMessage from '../../../../components/Form/FormErrorMessage'
-import Header from '../../../../components/Head/Header';
+import FormInput from '../../../../../components/Form/FormInput'
+import FormTextArea from '../../../../../components/Form/FormTextArea'
+import FormErrorMessage from '../../../../../components/Form/FormErrorMessage'
+import Header from '../../../../../components/Head/Header';
 import { FcGlobe } from 'react-icons/fc'
 import {BsClockFill} from 'react-icons/bs'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
@@ -47,6 +46,7 @@ const isSessionValid = (session) => {
 }
 
 
+/** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
 export default function Index({actualEventType , date}) {
     const booking_id = actualEventType.booking[0].id
     const router = useRouter()
@@ -68,7 +68,7 @@ export default function Index({actualEventType , date}) {
         })
         if(response.data.status == 200){
             router.push({
-                pathname:"/bookings/success",
+                pathname:"/bookings/Success",
                 query:{
                     eventId:actualEventType.id,
                     bookingId:booking_id,

@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import { getSession , useSession } from 'next-auth/client'
 import prisma from '../../../../lib/prisma'
 import DatePicker from 'react-datepicker'
-import Header from '../../../components/Head/Header';
+import Header from '../../../../components/Head/Header';
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import { BsClockFill } from 'react-icons/bs'
@@ -49,7 +49,8 @@ const isSessionValid = (session) => {
     }
 }
 
-export default function Event({eventType}) {
+/** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
+export default function Index({eventType}) {
     const router = useRouter()
     const [session , loading] = useSession()
     const { minutes,title } = eventType
@@ -100,6 +101,7 @@ export default function Event({eventType}) {
                 })
             }
          } catch (error) {
+            setIsLoading(false) 
              setHasError(true)
              setErrorMessage('an error occured...please try again')
          }
@@ -111,13 +113,13 @@ export default function Event({eventType}) {
         return (
             <>
             <Header title={`${minutes} minutes meeting`}/>
-            <div className='h-screen w-screen bg-gray-100'>
-              <div className='flex h-full w-full justify-center items-center'>
-                  <div className='bg-white px-40 p-16 border'>
+            <div className='w-screen h-screen bg-gray-100'>
+              <div className='flex items-center justify-center w-full h-full'>
+                  <div className='p-16 px-40 bg-white border'>
                     <div className='flex justify-center'>
                     {
                         hasError &&
-                        <span className='text-red-500 font-bold py-4'>
+                        <span className='py-4 font-bold text-red-500'>
                             {
                                 errorMessage
                             }
@@ -126,9 +128,9 @@ export default function Event({eventType}) {
                     </div>
                    <div className='flex gap-2'>
                        <div className='flex flex-col items-start'>
-                           <span className='text-gray-400 text-lg uppercase'>{session.user.username}</span>
-                           <h3 className='text-black text-3xl font-bold'>{minutes} minutes meeting</h3>
-                           <h3 className='text-black text-xl font-bold'>{title}</h3>
+                           <span className='text-lg text-gray-400 uppercase'>{session.user.username}</span>
+                           <h3 className='text-3xl font-bold text-black'>{minutes} minutes meeting</h3>
+                           <h3 className='text-xl font-bold text-black'>{title}</h3>
                            <div className='flex items-center gap-2 mt-4'>
                                 <BsClockFill className='text-gray-500'/>
                                 <span>{minutes} minutes</span>
@@ -136,9 +138,9 @@ export default function Event({eventType}) {
                        </div>
                        <hr className='h-full border border-red-700'/>
                        <div className='flex flex-col items-start'>
-                            <span className='font-bold mb-2'>Select Date and Time</span>
+                            <span className='mb-2 font-bold'>Select Date and Time</span>
                             <DatePicker
-                                 className='border p-2'
+                                 className='p-2 border'
                                  selected={startDate}
                                  onChange={(date) => formatTime(date)}
                                  filterDate={isWeekday}
@@ -151,7 +153,7 @@ export default function Event({eventType}) {
 
                        </div>
                    </div>
-                   <div className='mt-4 flex justify-center'>
+                   <div className='flex justify-center mt-4'>
                        <button onClick={submitData}
                         className={!isLoading ? 'bg-black text-white p-3 rounded-sm': 'bg-gray-400 text-white p-3 rounded-sm'}>
                            <span className='font-bold'>
