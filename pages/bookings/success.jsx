@@ -66,7 +66,7 @@ export default function Success({actualEventType , guestNames}) {
                             <div className='flex justify-between gap-2 mb-4'>
                                 <p className='text-sm font-semibold'>What</p>
                                 <div className='flex flex-col gap-1'>
-                                    <p className='text-xs text-left'>15 min Meeting between {session.user.username} and</p>
+                                    <p className='text-xs text-left'>{actualEventType.booking[0].duration} min Meeting between {session.user.username} and</p>
                                     <p className='text-xs text-left'>{guestNames}</p>
                                 </div>
                             </div>
