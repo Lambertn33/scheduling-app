@@ -13,11 +13,9 @@ export default async (req,res) =>{
                 event_type_id:eventTypeId,
                 userId:user.id,
             }
-        })
-        //Everything done..
-    
+        })    
        res.status(200).send({status:200 , message:"New booking created successfully"})
     } catch (error) {
-        throw error
+        res.status(500).send({status:500 , message:"an error occured...please try again"})
     }
 }
